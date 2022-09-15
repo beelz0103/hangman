@@ -1,10 +1,6 @@
-require 'pry-byebug'
-require_relative 'helper'
-require_relative 'game_saver'
-
 # frozen_string_literal: true
 
-# Game class
+# Game class where hangman stuff happens
 class Game
   include Helper
   include GameSaver
@@ -30,7 +26,6 @@ class Game
   def new_game
     @solution = choose_word.split('')
     @hidden_solution = create_hidden_solution(@solution)
-    p @solution # remove later
     print_all_text
     start_game
     conclusion
@@ -39,7 +34,7 @@ class Game
   def start_game
     until @incorrect_guesses_left.zero?
       puts guess_instructions
-      @guess = guess_check_all(make_guess)      
+      @guess = guess_check_all(make_guess)
 
       if @guess == 'save'
         save_game
@@ -59,8 +54,6 @@ class Game
     end
   end
 
-  private
-
   def game_over?
     !@hidden_solution.include?('_')
   end
@@ -78,6 +71,3 @@ class Game
     print_text([@incorrect_guesses_left], 'Remainding incorrect guesses: ')
   end
 end
-
-newgame = Game.new
-newgame.play

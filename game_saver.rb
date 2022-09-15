@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
+require 'yaml'
+
 # Helper module for saving and loading
 module GameSaver
   def save_game
-    dirname = "saved_games"
+    dirname = 'saved_games'
     file = file_name(dirname)
-    Dir.mkdir(dirname) unless File.exists?dirname
+    Dir.mkdir(dirname) unless File.exist? dirname
     File.open("#{dirname}/#{file}.yaml", 'w'){|f| f.puts to_yaml} 
     puts 'Saved game succesfully!'
   end
@@ -33,7 +35,7 @@ module GameSaver
   end
 
   def from_yaml(string)
-    YAML.safe_load string
+    YAML.load string
   end
 
   def file_name(dirname)
